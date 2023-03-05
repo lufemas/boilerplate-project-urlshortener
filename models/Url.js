@@ -7,7 +7,7 @@ const urlSchema = new mongoose.Schema({
   },
   short_url: {
     type: Number,
-    auto- increment: true
+    required: true
   }
 });
 
