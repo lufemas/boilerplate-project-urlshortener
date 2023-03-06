@@ -53,12 +53,7 @@ app.post('/api/shorturl', async function(req, res) {
 app.get('/api/shorturl/:id', async (req, res) => {
   const urlId = req.params.id;
   const url = await urlController.getByShortUrl(urlId);
-  // console.log('url got by id:', url.original_url)
-  // console.log('shortUrls: ', shortUrls)
-  // console.log('urlId: ', urlId)
-  // console.log('shortUrls[urlId]: ', shortUrls[urlId])
   res.redirect(url.original_url);
-  // res.redirect('https://www.google.com');
 });
 
 app.listen(port, function() {
