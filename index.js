@@ -35,13 +35,14 @@ app.post('/api/shorturl', async function(req, res) {
   const originalUrl = req.body.url;
   const isValidUrl = /^https:\/\/.+[.].{2,}$/.test(originalUrl);
 
-  if (!isValidUrl) res.json({ error: 'invalid url' });
+  if (!isValidUrl) {
+    console.log('It is not a valid URL, originalUrl:', originalUrl);
+    return res.json({ error: 'invalid url' })
+  };
+  console.log('It a valid URL, originalUrl:', originalUrl);
 
-  // const urlId = shortUrls.push(originalUrl);
   const result = await urlController.createAndSaveUrl(originalUrl);
 
-  console.log('result: ', result);
-  // console.log(shortUrls)
   res.json({
     original_url: result.original_url,
     short_url: result.short_url
@@ -52,11 +53,11 @@ app.post('/api/shorturl', async function(req, res) {
 app.get('/api/shorturl/:id', async (req, res) => {
   const urlId = req.params.id;
   const url = await urlController.getByShortUrl(urlId);
-  console.log('url got by id:', url.original_url)
-  console.log('shortUrls: ', shortUrls)
-  console.log('urlId: ', urlId)
-  console.log('shortUrls[urlId]: ', shortUrls[urlId])
-  res.redirect(shortUrls[urlId]);
+  // console.log('url got by id:', url.original_url)
+  // console.log('shortUrls: ', shortUrls)
+  // console.log('urlId: ', urlId)
+  // console.log('shortUrls[urlId]: ', shortUrls[urlId])
+  res.redirect(url.original_url);
   // res.redirect('https://www.google.com');
 });
 
